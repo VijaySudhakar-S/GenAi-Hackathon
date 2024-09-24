@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorix - Empowering AI Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #E3F2FD, #B9FBC0);
+            color: #333;
+            scroll-behavior: smooth;
+            perspective: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 50px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInDown 1s ease forwards;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0288D1;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .cta-button {
+            padding: 10px 20px;
+            background-color: #0288D1;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 20px rgba(0, 136, 209, 0.5);
+        }
+
+        .cta-button:hover {
+            background-color: #02669B;
+            transform: translateY(-5px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #E0F7FA, #B9FBC0);
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #E0F7FA 30%, #B9FBC0);
+            transform: translateY(10%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #0288D1;
+            opacity: 0;
+            animation: textZoomIn 1s ease-in-out forwards;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #02669B;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s 0.3s forwards;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeIn 1.5s 0.5s forwards;
+            width: 80%;
+            margin: auto;
+        }
+
+        .hero-buttons {
+            margin-top: 60px;
+            opacity: 0;
+            animation: fadeInUp 1.5s 0.8s forwards;
+        }
+
+        .hero-button {
+            padding: 15px 30px;
+            background-color: #0288D1;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 20px rgba(0, 136, 209, 0.2);
+        }
+
+        .secondary-button {
+            background-color: #09180e;
+            margin-left: 20px;
+        }
+
+        .hero-button:hover {
+            background-color: #02669B;
+            transform: translateY(-5px);
+        }
+
+        .secondary-button:hover {
+            background-color: #313131;
+            transform: translateY(-5px);
+        }
+
+        /* Scroll Animations for Sections */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 40px;
+            padding: 50px 0;
+            background: linear-gradient(60deg, #E0F7FA, #B9FBC0);
+        }
+
+        .feature-card {
+            background-color: #fff;
+            width: 25%;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform: translateY(10px) rotateX(0deg);
+        }
+
+        .feature-card:hover {
+
+            transform: perspective(600px) rotateX(5deg);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card p {
+            margin-bottom: 35px;
+        }
+
+        .feature-icon {
+            height: 80px;
+            margin-bottom: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prompt {
+            background-image: url('icons/text.png');
+        }
+
+        .image {
+            background-image: url('icons/image-break.png');
+        }
+
+        .pdf {
+            background-image: url('icons/paper.png');
+        }
+
+        .feature-button {
+            padding: 10px 20px;
+            background-color: #0288D1;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 10px 20px rgba(0, 136, 209, 0.5);
+        }
+
+        .feature-button:hover {
+            background-color: #02669B;
+            transform: translateY(-5px);
+        }
+
+        /* Testimonial Section */
+        #testimonials {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        #testimonials h2 {
+            font-size: 2.5rem;
+            color: #333;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .testimonial {
+            display: inline-block;
+            width: 30%;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            text-align: left;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        .testimonial p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .testimonial-author {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #0288D1;
+        }
+
+        /* Video Section */
+        #video-section {
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #A7FFEB, #E0F7FA);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        #video-section h2 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .video-wrapper {
+            margin-top: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* FAQ Section */
+        #faq {
+            padding: 50px;
+            background-color: #fff;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        #faq h2 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background-color: #e0f7fa;
+        }
+
+        .faq-content {
+            display: none;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            margin-top: 10px;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            background-color: #0288D1;
+            color: white;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textZoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">Tutorix</div>
+        <button class="cta-button">Get Started</button>
+    </header>
+
+    <section class="hero">
+        <h1>Empowering Students & Teachers with AI Assistance</h1>
+        <h2>Your Personalized Learning Companion</h2>
+        <p>Tutorix integrates advanced AI technology to provide you with personalized learning experiences, enabling
+            students and teachers alike to achieve their goals efficiently.</p>
+        <div class="hero-buttons">
+            <a href="#" class="hero-button">Explore More</a>
+            <a href="#" class="hero-button secondary-button">Watch Video</a>
+        </div>
+    </section>
+    <h1 style="margin: auto; text-align: center;">Our Tools</h1>
+    <section id="features">
+        <div class="feature-card">
+            <div class="feature-icon prompt"></div>
+            <h3>Text Prompt Learning</h3>
+            <p>Generate knowledge instantly through text prompts. Our AI assists with learning on-demand.</p>
+            <a href="#" class="feature-button">Visit</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon image"></div>
+            <h3>Image-Based Learning</h3>
+            <p>Leverage our AI to analyze and learn from images, helping you visualize content better.</p>
+            <a href="#" class="feature-button">Visit</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon pdf"></div>
+            <h3>PDF & Document Support</h3>
+            <p>Upload PDFs and documents for AI-assisted learning and deeper comprehension.</p>
+            <a href="#" class="feature-button">Visit</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon prompt"></div>
+            <h3>Quiz Generater</h3>
+            <p>Automatically generate quizzes based on the uploaded Topic.</p>
+            <a href="#" class="feature-button">Visit</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon prompt"></div>
+            <h3>Text Sumarizer</h3>
+            <p>Instantly summarize long texts into concise, key points using AI..</p>
+            <a href="#" class="feature-button">Visit</a>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon prompt"></div>
+            <h3>AI-Assisted Code Learning</h3>
+            <p>the AI can analyze, explain, and even debug, aiding in coding and programming education.</p>
+            <a href="#" class="feature-button">Visit</a>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial">
+            <p>"Tutorix has revolutionized the way I learn. The AI adapts to my style and makes learning fun!"</p>
+            <span class="testimonial-author">- Sarah K.</span>
+        </div>
+
+        <div class="testimonial">
+            <p>"As a teacher, Tutorix helps me customize lessons for my students. It's an amazing tool for the
+                classroom."</p>
+            <span class="testimonial-author">- John M.</span>
+        </div>
+
+        <div class="testimonial">
+            <p>"I love how I can use Tutorix to break down complex topics into easy-to-understand parts. It's a game
+                changer."</p>
+            <span class="testimonial-author">- Emily S.</span>
+        </div>
+    </section>
+
+    <section id="video-section">
+        <h2>Watch Tutorix in Action</h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How does Tutorix work?</h3>
+            <div class="faq-content">
+                <p>Tutorix leverages advanced AI algorithms to personalize learning for every student. Whether you need
+                    help with text, images, or documents, Tutorix provides instant assistance.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h3>Can I use Tutorix on mobile?</h3>
+            <div class="faq-content">
+                <p>Yes, Tutorix is fully responsive and works across all devices, including mobile, tablet, and desktop.
+                </p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <h3>Is Tutorix free to use?</h3>
+            <div class="faq-content">
+                <p>Tutorix offers both free and premium plans. You can get started with our free plan and upgrade to
+                    premium for advanced features.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Tutorix. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-item h3').forEach(faqHeader => {
+            faqHeader.addEventListener('click', () => {
+                const content = faqHeader.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        const elements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        elements.forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
